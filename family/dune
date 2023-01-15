@@ -1,0 +1,12 @@
+(executable
+ (name family)
+ (modules family)
+ (libraries OCanren)
+ (flags
+  (:standard -rectypes))
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all
+   OCanren-ppx.ppx_deriving_reify)))
