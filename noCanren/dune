@@ -1,0 +1,262 @@
+; THIS FILE IS GENERATED AUTOMATICALLY
+
+(env
+ (_
+  (flags
+   (:standard -rectypes -w -27-32-33-34-39))))
+
+(rule
+ (targets WGC.ml)
+ (deps
+  (:input WGC.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -rectypes -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name WGC_run)
+ (libraries GT OCanren OCanren.tester noCanren.Maybe noCanren.List)
+ (modules WGC WGC_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(executable
+ (name bottles_run)
+ (libraries GT OCanren OCanren.tester)
+ (modules bottles bottles_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets bottles.ml)
+ (deps
+  (:input bottles.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name bridge_run)
+ (libraries GT OCanren OCanren.tester)
+ (modules bridge bridge_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets bridge.ml)
+ (deps
+  (:input bridge.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name einstein_run)
+ (libraries GT OCanren OCanren.tester)
+ (modules einstein einstein_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets einstein.ml)
+ (deps
+  (:input einstein.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name hanoi_run)
+ (libraries GT OCanren OCanren.tester noCanren.Peano)
+ (modules hanoi hanoi_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets hanoi.ml)
+ (deps
+  (:input hanoi.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -rectypes -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name hm_inferencer_run)
+ (libraries GT OCanren OCanren.tester)
+ (modules hm_inferencer hm_inferencer_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets hm_inferencer.ml)
+ (deps
+  (:input hm_inferencer.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name scheme_interpreter_run)
+ (libraries GT OCanren OCanren.tester)
+ (modules scheme_interpreter scheme_interpreter_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets scheme_interpreter.ml)
+ (deps
+  (:input scheme_interpreter.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name sudoku4x4_run)
+ (libraries GT OCanren OCanren.tester)
+ (modules sudoku4x4 sudoku4x4_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets sudoku4x4.ml)
+ (deps
+  (:input sudoku4x4.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name lorry_run)
+ (flags
+  (:standard -rectypes))
+ (libraries GT OCanren OCanren.tester)
+ (modules lorry lorry_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets lorry.ml)
+ (deps
+  (:input lorry.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name unify_run)
+ (libraries GT OCanren OCanren.tester)
+ (modules unify unify_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets unify.ml)
+ (deps
+  (:input unify.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name logic_interpreter_run)
+ (libraries GT OCanren OCanren.tester)
+ (modules logic_interpreter logic_interpreter_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets logic_interpreter.ml)
+ (deps
+  (:input logic_interpreter.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(executable
+ (name car_wheels_run)
+ ;(package noCanren-tests)
+ ;(public_name noCanren-tests.hanoi)
+ (libraries GT OCanren OCanren.tester noCanren.Peano)
+ (modules car_wheels car_wheels_run)
+ (preprocess
+  (pps
+   OCanren-ppx.ppx_repr
+   OCanren-ppx.ppx_fresh
+   OCanren-ppx.ppx_distrib
+   GT.ppx_all)))
+
+(rule
+ (targets car_wheels.ml)
+ (deps
+  (:input car_wheels.ml2mk.ml))
+ (action
+  (run
+   sh
+   -c
+   "noCanren -w -8 %{input} -rectypes -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
