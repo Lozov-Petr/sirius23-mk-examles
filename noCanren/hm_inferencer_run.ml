@@ -22,7 +22,7 @@ module For_gliteral = struct
     | LBool of 'a0
   [@@deriving gt ~options:{ gmap }]
 
-  type nonrec ground = (int, bool) t]
+  type nonrec ground = (GT.int, GT.bool) t]
 end
 
 module For_glambda = struct

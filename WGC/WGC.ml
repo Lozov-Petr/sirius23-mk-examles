@@ -3,7 +3,7 @@ module L = List
 open OCanren
 open OCanren.Std
 
-type move = Empty | Goat | Wolf | Cabbage [@@deriving gt ~options:{ show }]
+ocanren type move = Empty | Goat | Wolf | Cabbage
 
 let ( ! ) = inj
 let qua x y z t = OCanren.inj (x, y, z, t)
@@ -72,7 +72,7 @@ let step state move state' =
       [
         isMan left &&& noMan right &&& step' left right state';
         isMan right &&& noMan left
-        &&& fresh state'' (step' right left state'' &&& swap state'' state');
+        &&& fresh (state'') (step' right left state'' &&& swap state'' state')
       ])
 
 let rec eval state moves state' =
@@ -83,10 +83,10 @@ let rec eval state moves state' =
         (moves === move % moves' &&& step state move state''
        &&& eval state'' moves' state');
     ]
-    ocanren
+;;
 
-type state = (bool * bool * bool * bool) * (bool * bool * bool * bool)
-type solution = move logic Std.List.logic [@@deriving gt ~options:{ show }]
+ocanren type state = (GT.bool * GT.bool * GT.bool * GT.bool) * (GT.bool * GT.bool * GT.bool * GT.bool);;
+ocanren type solution = move Std.List.ground ;;
 
 let _ =
   L.iter (fun s -> Printf.printf "%s\n" @@ show solution s)
@@ -101,4 +101,4 @@ let _ =
            (pair
               (qua !false !false !false !false)
               (qua !true !true !true !true)))
-       (fun s -> s#reify (List.reify reify))
+       (fun s -> s#reify prj_exn_solution)

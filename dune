@@ -1,0 +1,20 @@
+(env
+ (_
+  (flags
+   (:standard -warn-error -unused-var-strict -w -unused-var-strict))))
+
+(rule
+ (targets pp5+gt+plugins+ocanren+logger+dump.exe)
+ (deps
+  (package OCanren))
+ (action
+  (run
+   mkcamlp5.opt
+   -package
+   camlp5,camlp5.pa_o
+   -package
+   OCanren.syntax
+   pr_dump.cmx
+   -o
+   %{targets}
+   -)))
