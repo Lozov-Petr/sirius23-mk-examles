@@ -95,7 +95,7 @@ let getFuel step state cop =
   | Pour f -> O
   | Fill ->
     (match state with
-     | St (pos, fuel, sts) ->
+     | St (pos, fuel, stscurrIsMove) ->
        (match pos with
         | O -> cop |-| fuel
         | S x -> O))
@@ -110,19 +110,18 @@ let isMove step =
 ;;
 
 let checkAnswer answer len cop =
-  let rec calcFuel state ans prevIsMove =
+  let[@tabled] rec calcFuel state ans prevIsMove =
     match ans with
-    | [] -> if isFinishState state len then Some cop else None
+    | [] -> if isFinishState state len then cop 
+      else failwith "Not finish state"
     | x :: xs ->
       let currIsMove = isMove x in
       if prevIsMove = currIsMove
-      then None
+      then failwith ""
       else if checkStep x state len cop
-      then (
-        match calcFuel (step x state len cop) xs currIsMove with
-        | None -> None
-        | Some res -> Some (getFuel x state cop |+| res))
-      else None
+      then 
+        (getFuel x state cop |+| (calcFuel (step x state len cop) xs currIsMove))
+      else failwith ""
   in
   let startState =
     let rec stations n =

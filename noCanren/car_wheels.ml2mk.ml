@@ -24,8 +24,7 @@ let do_step state (wheel1, wheel2, wheel3, wheel4) dist =
 ;;
 
 let is_correct_step (dist, (wheel1, wheel2, wheel3, wheel4)) state =
-  dist
-  <> 0
+  dist <> 0
   <&&> (wheel1 <> wheel2)
   <&&> (wheel1 <> wheel3)
   <&&> (wheel1 <> wheel4)

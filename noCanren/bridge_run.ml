@@ -17,6 +17,16 @@ module Gperson = struct
   type nonrec ground = t]
 end
 
+module Gpeano = struct
+  [%%distrib
+  type nonrec 'a0 t = 'a0 gpeano =
+    | O 
+    | S of 'a0
+  [@@deriving gt ~options:{ show; gmap }]
+
+  type ground = ground t]
+end
+
 module Gstep = struct
   [%%distrib
   type nonrec 'a0 t = 'a0 gstep =
@@ -39,21 +49,45 @@ let show_step f = function
   | Two (x, y) -> Printf.sprintf "(%s, %s)" (f x) (f y)
 ;;
 
-let myshow x = show List.ground (show_step show_person) x
+let show_nat n = 
+  let rec nat2int = function
+  | O -> 0
+  | S n -> 1 + nat2int n in
+  Printf.sprintf "%d" @@ nat2int n
+
+let myshow x = show Pair.ground show_nat (show List.ground (show_step show_person)) x
 
 (*************************************************)
 
 let rec int2nat i = if i = 0 then o () else s @@ int2nat @@ (i - 1)
+
+let less_17 x =
+  let rec less x y  =
+    conde [
+      fresh (y') 
+        (x === o ()) 
+        (y === s y');
+      fresh (x' y')
+        (x === s x')
+        (y === s y')
+        (less x' y')
+    ] 
+  in 
+  less x (int2nat 17)
 
 (** For high order conversion **)
 let getAnswer q t r = getAnswer (( === ) q) t r
 
 let _ =
   run_r
-    (Std.List.prj_exn Gstep.prj_exn)
+    (Pair.prj_exn Gpeano.prj_exn @@ List.prj_exn Gstep.prj_exn)
     myshow
     1
     q
     qh
-    ("answers", fun q -> getAnswer q standartTimes (int2nat 17 |> some))
+    ("answers", fun q -> 
+      fresh (time answer)
+        (q === pair time answer)
+        (time === int2nat 17)
+        (getAnswer answer standartTimes (some time)))
 ;;

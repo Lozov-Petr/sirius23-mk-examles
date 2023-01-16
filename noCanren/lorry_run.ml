@@ -56,8 +56,18 @@ let () =
   run_r
     (List.prj_exn Gstep.prj_exn)
     myshow
+    10
+    q
+    qh
+    ("answers", fun q -> fresh (r) (checkAnswer q (of_int 8) (of_int 5) r))
+;;
+
+let () =
+  run_r
+    (List.prj_exn Gstep.prj_exn)
+    myshow
     1
     q
     qh
-    ("answers", fun q -> checkAnswer q (of_int 8) (of_int 5) (some @@ of_int 22))
+    ("answers", fun q -> checkAnswer q (of_int 8) (of_int 5) (of_int 22))
 ;;
