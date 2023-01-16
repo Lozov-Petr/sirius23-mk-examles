@@ -3,26 +3,57 @@ open OCanren
 type person = Joe | Edward | Kate | Emily | William
 [@@deriving gt ~options:{ show }]
 
-let male x = conde [ x === !!Joe; x === !!Edward; x === !!William ]
-let female x = conde [ x === !!Kate; x === !!Emily ]
+let male x = ocanren {
+  x == Joe     | 
+  x == Edward  | 
+  x == William 
+}
 
-let parent x y =
-  conde
-    [
-      x === !!William &&& (y === !!Kate);
-      x === !!Joe &&& (y === !!Emily);
-      x === !!Joe &&& (y === !!Edward);
-      x === !!Kate &&& (y === !!Emily);
-      x === !!Kate &&& (y === !!Edward);
-    ]
+let female x = ocanren {
+  x == Kate  | 
+  x == Emily 
+}
 
-let father x y = parent x y &&& male x
-let mother x y = parent x y &&& female x
-let sibling x y = fresh z (x =/= y) (parent z x) (parent z y)
-let brother x y = sibling x y &&& male x
-let sister x y = sibling x y &&& female x
-let grandfather x y = fresh z (father x z) (parent z y)
-let grandmother x y = fresh z (mother x z) (parent z y)
+let parent x y = ocanren {
+  x == William & y == Kate   |
+  x == Joe     & y == Emily  |
+  x == Joe     & y == Edward |
+  x == Kate    & y == Emily  |
+  x == Kate    & y == Edward
+}
+
+let father x y = ocanren { 
+  parent x y & male x 
+}
+
+let mother x y = ocanren {
+  parent x y & female x
+}
+
+let sibling x y = ocanren {
+  fresh z in 
+    x =/= y & parent z x & parent z y
+}
+
+let brother x y = ocanren {
+  sibling x y & male x
+}
+
+let sister x y = ocanren {
+  sibling x y & female x
+}
+
+let grandfather x y = ocanren {
+  fresh z in
+   father x z & parent z y
+}
+
+let grandmother x y = ocanren {
+  fresh z in 
+    mother x z & parent z y
+}
+
+(***********************************************)
 
 let _ =
   let show_person = GT.show logic @@ GT.show person in

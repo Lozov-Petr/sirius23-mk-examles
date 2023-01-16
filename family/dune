@@ -4,9 +4,14 @@
  (libraries OCanren)
  (flags
   (:standard -rectypes))
+ (preprocessor_deps %{project_root}/pp5+gt+plugins+ocanren+logger+dump.exe)
  (preprocess
   (pps
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
    GT.ppx_all
-   OCanren-ppx.ppx_deriving_reify)))
+   OCanren-ppx.ppx_deriving_reify
+   --
+   -new-typenames
+   -pp
+   ./pp5+gt+plugins+ocanren+logger+dump.exe)))

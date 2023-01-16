@@ -5,19 +5,17 @@ open OCanren
 open OCanren.Std
 open Nat
 
-let addo x y z =
-  conde
-    [
-      x === o &&& (y === z);
-      fresh (x' z') (x === s x') (z === s z') (addo x' y z');
-    ]
+let addo x y z = ocanren {
+  x == O & y == z |
+  fresh x', z' in
+    x == S x' & z == S z' & addo x' y z'
+}
 
-let mulo x y z =
-  conde
-    [
-      x === o &&& (z === o);
-      fresh (x' z') (x === s x') (mulo x' y z') (addo y z' z);
-    ]
+let mulo x y z = ocanren {
+  x == O & z == O |
+  fresh x', z' in
+    x == S x' & mulo x' y z' & addo y z' z
+}
 
 let _ =
   Printf.printf "addo q r 3\n";
