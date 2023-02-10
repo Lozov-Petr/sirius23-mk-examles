@@ -5,25 +5,6 @@ open Tester
 open Unify.HO
 
 (*************************************************)
-module For_gnat = struct
-  [%%distrib
-  type nonrec 'a0 t = 'a0 gnat =
-    | O
-    | S of 'a0
-  [@@deriving gt ~options:{ show; gmap }]
-
-  type ground = ground t]
-end
-
-module For_gterm = struct
-  [%%distrib
-  type nonrec ('a1, 'a0) t = ('a1, 'a0) gterm =
-    | Var_ of 'a1
-    | Constr of 'a1 * 'a0
-  [@@deriving gt ~options:{ show; gmap }]
-
-  type ground = (For_gnat.ground, ground Std.List.ground) t]
-end
 
 let show_number x =
   let rec nat2int = function
@@ -79,16 +60,16 @@ let rec show_lterm f x =
 
 let my_show x = show List.ground (show_term show_number) x
 let my_lshow x = show_llist (show_lterm show_lnumber) x
-let nat_reifier x = For_gnat.reify x
-let term_reifier x = For_gterm.reify x
+let nat_reifier x = nat_reify x
+let term_reifier x = term_reify x
 let my_reifier = List.reify term_reifier
 let full_run = run_r my_reifier my_lshow
 
 (*************************************************)
 
-let rec int2nat n = if n <= 0 then o () else s (int2nat (n - 1))
-let v n = var_ (int2nat n)
-let c n a = constr (int2nat n) @@ List.list a
+let rec int2nat n = if n <= 0 then !!O else !!(S (int2nat (n - 1)))
+let v n = !!(Var_ (int2nat n))
+let c n a = !!(Constr (int2nat n, List.list a))
 let t1 = c 0 []
 let t2 = v 0
 let t2' = c 0 [ t2 ]

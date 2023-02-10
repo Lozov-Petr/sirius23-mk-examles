@@ -1,3 +1,5 @@
+open List
+
 type num =
   | Z
   | S of num

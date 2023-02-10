@@ -5,52 +5,6 @@ open Tester
 open Hm_inferencer.HO
 
 (*************************************************)
-module For_gnum = struct
-  [%%distrib
-  type nonrec 'a0 t = 'a0 gnum =
-    | Z
-    | S of 'a0
-  [@@deriving gt ~options:{ gmap }]
-
-  type ground = ground t]
-end
-
-module For_gliteral = struct
-  [%%distrib
-  type nonrec ('a1, 'a0) t = ('a1, 'a0) gliteral =
-    | LInt of 'a1
-    | LBool of 'a0
-  [@@deriving gt ~options:{ gmap }]
-
-  type nonrec ground = (GT.int, GT.bool) t]
-end
-
-module For_glambda = struct
-  [%%distrib
-  type nonrec ('a, 'a1, 'a0) t = ('a, 'a1, 'a0) glambda =
-    | Var_ of 'a
-    | Lit of 'a1
-    | Tuple2 of 'a0 * 'a0
-    | App of 'a0 * 'a0
-    | Abst of 'a * 'a0
-    | Let_ of 'a * 'a0 * 'a0
-  [@@deriving gt ~options:{ gmap }]
-
-  type nonrec ('a, 'a1, 'a0) ground = ('a, 'a1, 'a0) t]
-end
-
-module For_glambda_type = struct
-  [%%distrib
-  type nonrec ('a, 'a0) t = ('a, 'a0) glambda_type =
-    | TInt
-    | TBool
-    | TPair of 'a0 * 'a0
-    | TVar of 'a
-    | TFun of 'a0 * 'a0
-  [@@deriving gt ~options:{ gmap }]
-
-  type nonrec ('a, 'a0) ground = ('a, 'a0) t]
-end
 
 let rec show_gnum num =
   let rec helper = function
@@ -92,22 +46,10 @@ let show_lliteral l =
   show logic (show_gliteral (show logic @@ show int) (show logic @@ show bool)) l
 ;;
 
-let literal_reifier r = For_gliteral.reify r
-let literal_prj_exn = For_gliteral.prj_exn
 let rec show_lambda l = show_glambda (show string) show_literal show_lambda l
 
 let rec show_llambda l =
   show logic (show_glambda (show logic (show string)) show_lliteral show_llambda) l
-;;
-
-let rec lambda_reifier l = For_glambda.reify reify literal_reifier lambda_reifier l
-
-let rec lambda_prj_exn l =
-  For_glambda.prj_exn OCanren.prj_exn literal_prj_exn lambda_prj_exn l
-;;
-
-let rec lambda_type_prj_exn l =
-  For_glambda_type.prj_exn For_gnum.prj_exn lambda_type_prj_exn l
 ;;
 
 (*************************************************)
@@ -115,9 +57,17 @@ let rec lambda_type_prj_exn l =
 (** For high order conversion **)
 let nat_type_inference p t = nat_type_inference (( === ) p) t
 
-let run_exn eta = run_r lambda_type_prj_exn eta
+let run_exn eta = run_r (lambda_type_prj_exn num_prj_exn) eta
 
 let _ =
+  let abst x y = !!(Abst (x, y)) in
+  let var_ x = !!(Var_ x) in
+  let let_ x y z = !!(Let_ (x, y, z)) in
+  let app x y = !!(App (x, y)) in
+  let tuple2 x y = !!(Tuple2 (x, y)) in
+  let lit x = !!(Lit x) in
+  let lInt x = !!(LInt x) in
+  let lBool x = !!(LBool x) in
   let term0 = abst !!"x" (var_ !!"x") in
   let term1 =
     let_

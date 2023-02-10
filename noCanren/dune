@@ -1,5 +1,3 @@
-; THIS FILE IS GENERATED AUTOMATICALLY
-
 (env
  (_
   (flags
@@ -24,6 +22,7 @@
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (executable
@@ -35,6 +34,7 @@
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule
@@ -56,6 +56,7 @@
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule
@@ -77,6 +78,7 @@
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule
@@ -98,6 +100,7 @@
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule
@@ -112,13 +115,14 @@
 
 (executable
  (name hm_inferencer_run)
- (libraries GT OCanren OCanren.tester)
+ (libraries GT OCanren OCanren.tester noCanren.List)
  (modules hm_inferencer hm_inferencer_run)
  (preprocess
   (pps
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule
@@ -129,17 +133,18 @@
   (run
    sh
    -c
-   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+   "noCanren -w -8 %{input} -rectypes -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
 
 (executable
  (name scheme_interpreter_run)
- (libraries GT OCanren OCanren.tester)
+ (libraries GT OCanren OCanren.tester noCanren.List)
  (modules scheme_interpreter scheme_interpreter_run)
  (preprocess
   (pps
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule
@@ -150,7 +155,7 @@
   (run
    sh
    -c
-   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+   "noCanren -w -8 %{input} -rectypes -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
 
 (executable
  (name sudoku4x4_run)
@@ -161,6 +166,7 @@
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule
@@ -177,13 +183,14 @@
  (name lorry_run)
  (flags
   (:standard -rectypes))
- (libraries GT OCanren OCanren.tester)
+ (libraries GT OCanren OCanren.tester noCanren.List)
  (modules lorry lorry_run)
  (preprocess
   (pps
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule
@@ -194,17 +201,18 @@
   (run
    sh
    -c
-   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+   "noCanren -w -8 %{input} -rectypes -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
 
 (executable
  (name unify_run)
- (libraries GT OCanren OCanren.tester)
+ (libraries GT OCanren OCanren.tester noCanren.List)
  (modules unify unify_run)
  (preprocess
   (pps
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule
@@ -215,7 +223,7 @@
   (run
    sh
    -c
-   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+   "noCanren -w -8 %{input} -rectypes -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
 
 (executable
  (name logic_interpreter_run)
@@ -226,6 +234,7 @@
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule
@@ -249,6 +258,7 @@
    OCanren-ppx.ppx_repr
    OCanren-ppx.ppx_fresh
    OCanren-ppx.ppx_distrib
+   -new-typenames
    GT.ppx_all)))
 
 (rule

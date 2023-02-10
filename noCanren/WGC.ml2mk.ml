@@ -1,4 +1,5 @@
 open Maybe
+open List
 
 type move = Empty | Goat | Wolf | Cabbage
 type solution = move list

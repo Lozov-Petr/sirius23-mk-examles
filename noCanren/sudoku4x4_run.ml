@@ -2,30 +2,9 @@ open OCanren
 open OCanren.Std
 open Tester
 open Sudoku4x4.HO
+open Sudoku4x4.FO
 
 (*************************************************)
-module Gnum = struct
-  [%%distrib
-  type nonrec t = gnum =
-    | N1
-    | N2
-    | N3
-    | N4
-  [@@deriving gt ~options:{ gmap }]
-
-  type nonrec ground = t]
-end
-
-include struct
-  [%%distrib
-  type nonrec 'a t = 'a gsudoku4X4 =
-    | S4x4 of
-        'a * 'a * 'a * 'a * 'a * 'a * 'a * 'a * 'a * 'a * 'a * 'a * 'a * 'a * 'a * 'a
-  [@@deriving gt ~options:{ gmap }]
-
-  type nonrec ground = Gnum.ground t]
-end
-
 let show_num = function
   | N1 -> "1"
   | N2 -> "2"
@@ -49,8 +28,5 @@ let myshow = show_sudoku4x4
 
 (*************************************************)
 
-(** For high order conversion **)
-let check_sudoku q r = check_sudoku (( === ) q) r
-
-let run_exn eta = run_r prj_exn eta
+let run_exn eta = run_r sudoku4X4_prj_exn eta
 let _ = run_exn myshow 1 q qh ("sudoku", fun q -> check_sudoku q !!true)

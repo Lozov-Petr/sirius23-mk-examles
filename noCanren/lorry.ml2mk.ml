@@ -1,3 +1,5 @@
+open List
+
 type nat =
   | O
   | S of nat
@@ -112,14 +114,14 @@ let isMove step =
 let checkAnswer answer len cop =
   let[@tabled] rec calcFuel state ans prevIsMove =
     match ans with
-    | [] -> if isFinishState state len then cop 
+    | [] -> if isFinishState state len then cop
       else failwith "Not finish state"
     | x :: xs ->
       let currIsMove = isMove x in
       if prevIsMove = currIsMove
       then failwith ""
       else if checkStep x state len cop
-      then 
+      then
         (getFuel x state cop |+| (calcFuel (step x state len cop) xs currIsMove))
       else failwith ""
   in
