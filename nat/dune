@@ -15,3 +15,9 @@
    -new-typenames
    -pp
    ./pp5+gt+plugins+ocanren+logger+dump.exe)))
+
+(cram
+ (deps
+  ./nat.exe
+  ;
+  ))

@@ -1,0 +1,12 @@
+  $ ./family.exe
+  male Kate: []
+  male Joe: [_.10]
+  male q: [Joe, Edward, William]
+  female q: [Kate, Emily]
+  father q Edward: [Joe]
+  mother q Emily: [Kate]
+  brother q Emily: [Edward, Edward]
+  sister q Emily: []
+  grandfather q Emily: [William]
+  grandmother q Emily: []
+  father p q: [(William, Kate), (Joe, Emily), (Joe, Edward)]

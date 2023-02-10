@@ -270,3 +270,19 @@
    sh
    -c
    "noCanren -w -8 %{input} -rectypes -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+
+(cram
+ (deps
+  ./WGC_run.exe
+  ./bottles_run.exe
+  ./bridge_run.exe
+  ./car_wheels_run.exe
+  ./einstein_run.exe
+  ./hanoi_run.exe
+  ./hm_inferencer_run.exe
+  ./logic_interpreter_run.exe
+  ./scheme_interpreter_run.exe
+  ./sudoku4x4_run.exe
+  ./unify_run.exe
+  ;
+  ))
