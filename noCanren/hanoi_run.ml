@@ -1,4 +1,4 @@
-module L = List
+module L = Stdlib.List
 open GT
 open OCanren
 open OCanren.Std
@@ -14,8 +14,8 @@ let gen_pin n =
   let rec gen_pin m = if m = n then nil () else toN m % gen_pin (m + 1) in
   gen_pin 0
 
-let start n = ctor_gset (gen_pin n) (nil ()) (nil ())
-let finish n = ctor_gset (nil ()) (nil ()) (gen_pin n)
+let start n = ctor_set (gen_pin n) (nil ()) (nil ())
+let finish n = ctor_set (nil ()) (nil ()) (gen_pin n)
 
 let _ =
   Printf.printf "%s\n" @@ show_answer @@ L.hd @@ Stream.take ~n:1

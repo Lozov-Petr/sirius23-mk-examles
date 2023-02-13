@@ -93,7 +93,7 @@
 
 (executable
  (name hanoi_run)
- (libraries GT OCanren OCanren.tester noCanren.Peano)
+ (libraries GT OCanren OCanren.tester noCanren.Peano noCanren.List)
  (modules hanoi hanoi_run)
  (preprocess
   (pps
