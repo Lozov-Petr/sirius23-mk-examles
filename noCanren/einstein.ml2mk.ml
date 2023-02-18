@@ -28,7 +28,7 @@ type smoke =
 
 type pet =
   | Fox
-  | Horse
+  | Hourse
   | Snails
   | Dog
   | Zebra
@@ -120,7 +120,7 @@ let clue11 st =
 (* В доме по соседству с тем, в котором держат лошадь, курят Kool *)
 let clue12 st =
   let for_neighbors_pair (_, _, _, s1, p1) (_, _, _, s2, p2) =
-    (s1 = Kools && p2 = Horse) || (p1 = Horse && s2 = Kools)
+    (s1 = Kools && p2 = Hourse) || (p1 = Hourse && s2 = Kools)
   in
   any_of_neighbors_pair for_neighbors_pair st
 ;;
@@ -156,7 +156,7 @@ let all_present (p1, p2, p3, p4, p5) =
        || s = Old_Gold
        || s = Lacky_Strike
        || s = Parliament)
-    && (p = Fox || p = Horse || p = Snails || p = Dog || p = Zebra)
+    && (p = Fox || p = Hourse || p = Snails || p = Dog || p = Zebra)
   in
   for_person p1 && for_person p2 && for_person p3 && for_person p4 && for_person p5
 ;;
@@ -183,7 +183,7 @@ let check_state st =
 (*
 let answer = (
   (Yellow, Norwegian , Water       , Kools       , Fox   ),
-  (Blue  , Ukrainian , Tea         , Chesterfield, Horse),
+  (Blue  , Ukrainian , Tea         , Chesterfield, Hourse),
   (Red   , Englishman, Milk        , Old_Gold    , Snails),
   (Ivory , Spaniard  , Orange_juice, Lacky_Strike, Dog   ),
   (Green , Japanese  , Coffee      , Parliament  , Zebra ))

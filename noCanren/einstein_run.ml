@@ -39,7 +39,7 @@ let show_smoke = function
 
 let show_pet = function
   | Fox -> "Fox         "
-  | Horse -> "Horse       "
+  | Hourse -> "Hourse      "
   | Snails -> "Snails      "
   | Dog -> "Dog         "
   | Zebra -> "Zebra       "

@@ -27,7 +27,7 @@
 
 (executable
  (name bottles_run)
- (libraries GT OCanren OCanren.tester)
+ (libraries GT OCanren OCanren.tester noCanren.Peano)
  (modules bottles bottles_run)
  (preprocess
   (pps
@@ -45,11 +45,11 @@
   (run
    sh
    -c
-   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+   "noCanren -rectypes -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
 
 (executable
  (name bridge_run)
- (libraries GT OCanren OCanren.tester)
+ (libraries GT OCanren OCanren.tester noCanren.Peano)
  (modules bridge bridge_run)
  (preprocess
   (pps
@@ -67,7 +67,7 @@
   (run
    sh
    -c
-   "noCanren -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
+   "noCanren -rectypes -w -8 %{input} -o %{targets} | ocamlformat --enable-outside-detected-project --impl -")))
 
 (executable
  (name einstein_run)
